@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Список роботов</h2>
+<ul class="list-articles">
+	{% for r in robots %}
+			<li>
+				<div class="article-panel">
+					<p class="first">Серия: {{ r.serial }} </p>
+				</div>
+				<p>Moдель: {{ r.model }}</p>
+        <p>Версия: {{ r.version }}</p>
+        <p>Дата создания: {{ r.created }}</p>
+			</li>
+	{% endfor %}
+</ul>
+{% endblock %}
