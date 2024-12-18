@@ -2,6 +2,7 @@
 
 {% block content %}
 <h2>Список роботов</h2>
+<p><a href="{% url 'add_order' %}">Заказать робота</a></p>
 <ul class="list-articles">
 	{% for r in robots %}
 			<li>

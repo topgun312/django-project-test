@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 
 import pytz
+from django.conf import settings
+from django.core.mail import send_mail
 from django.db.models import Count
 from django.http import HttpResponse
 from openpyxl import Workbook
@@ -56,3 +58,18 @@ def export_data_to_excel_file():
     wb.save(response)
     wb.save(f"excel_files/report_{current_date.date()}.xlsx")
     return response
+
+
+def send_email(to_email, model, version):
+    """
+    Функция для отправки email-письма клиенту, сделавшему заказ на робота, при его появлении
+    """
+    send_mail(
+        subject="Сообщение о наличии робота",
+        message=f"""Добрый день!
+                Недавно вы интересовались нашим роботом модели {model}, версии {version}.
+                Этот робот теперь в наличии. Если вам подходит этот вариант - пожалуйста, свяжитесь с нами""",
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[to_email],
+        fail_silently=False,
+    )

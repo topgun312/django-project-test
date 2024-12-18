@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 
 class RobotAddForm(forms.Form):
     """
-    Форма для валидации входящих данных в JSON формате
+    Форма для валидации входящих данных в JSON формате и создания робота
     """
 
     jsonfield = forms.JSONField(max_length=1024, required=True, label="Формат JSON")

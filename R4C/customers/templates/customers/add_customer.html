@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Регистрация клиента</h2>
+<h4>Если вы уже зарегистрированы, можете переходить к заказу робота или к просмотру списка роботов</h4>
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="form-error">{{ form.non_field_errors }}</div>
+  {% for f in form %}
+  <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label> {{ f }}</p>
+  <div class="form-error">{{ f.errors }}</div>
+  {% endfor %}
+  <p><button type="submit">Отправить</button> </p>
+</form>
+<p><a href="{% url 'add_order' %}">Заказать робота</a></p>
+{% endblock %}
