@@ -1,5 +1,6 @@
 import datetime
 
+import pytz
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -39,7 +40,7 @@ class RobotAddForm(forms.Form):
             )
 
         try:
-            datetime.datetime.strptime(created, "%Y-%m-%d %H:%M:%S")
+            current_datetime = datetime.datetime.strptime(created, "%Y-%m-%d %H:%M:%S")
         except ValueError:
             raise ValidationError(
                 "Время создания робота должно иметь формат '2022-12-31 23:59:59'!"
@@ -47,4 +48,7 @@ class RobotAddForm(forms.Form):
 
         serial = model + "-" + version
         json_data["serial"] = serial
+        tz = pytz.timezone("UTC")
+        current_date = tz.localize(current_datetime)
+        json_data["created"] = current_date
         return json_data
